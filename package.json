@@ -4,8 +4,6 @@
   "description": "manage a Python daemon",
   "main": "lib/py-daemon.js",
   "scripts": {
-    "start": "node lib/start.js",
-    "show": "node lib/show.js",
     "test": "./node_modules/.bin/mocha"
   },
   "private": true,
