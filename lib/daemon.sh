@@ -1,5 +1,5 @@
 #!/bin/bash
-TEMP=$(getopt -n "$0" -o a:s:tu:v: --long action:,service:,test,user:,venv: -- "$@")
+TEMP=$(getopt -n "$0" -o a:p:s:tu: --long action:,python:,service:,test,user: -- "$@")
 if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
 eval set -- "$TEMP"
 while true;
@@ -7,6 +7,9 @@ do
     case "$1" in
         -a|--action)
             action="$2"
+            shift 2;;
+        -p|--python)
+            python="$2"
             shift 2;;
         -s|--service)
             service="$2"
@@ -17,16 +20,13 @@ do
         -t|--test)
             python_opts="--test"
             shift ;;
-        -v|--venv)
-            venv="$2"
-            shift 2;;
         --)
             shift
             break;;
     esac
 done
 
-PYTHON="${venv}/bin/python"
+PYTHON="${python}"
 PIDFILE="/var/run/${user}.pid"
 DAEMON_MGR="start-stop-daemon"
 INFO_LEVEL="--verbose"
